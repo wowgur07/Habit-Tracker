@@ -22,160 +22,198 @@
     --purple-bg:#f3effe;--purple-text:#4a1a8a;--purple-border:#c4a8f5;
     --radius:10px;--radius-lg:14px;--radius-pill:50px;
     --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+
+    /* ── Material Design 3 responsive type scale ──
+       Sizes use clamp(min, fluid, max) so they scale smoothly from
+       mobile → tablet → desktop while never dropping below MD's
+       readability floor. Body baseline is 16px (MD Body Large). */
+    --display:  clamp(28px, 5vw, 34px);   /* app title / big numbers */
+    --headline: clamp(22px, 3.5vw, 26px); /* section headlines */
+    --title-lg: clamp(18px, 2.4vw, 20px); /* card titles, metric values */
+    --title:    clamp(16px, 2vw, 18px);   /* prominent labels */
+    --body-lg:  clamp(16px, 1.6vw, 17px); /* primary body, tasks, inputs */
+    --body:     clamp(15px, 1.4vw, 16px); /* standard body text */
+    --label:    clamp(14px, 1.3vw, 15px); /* buttons, chips, meta */
+    --label-sm: clamp(12px, 1.1vw, 13px); /* small captions, overlines */
+    --line-body: 1.5;
+    --line-tight: 1.3;
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   html{-webkit-text-size-adjust:100%}
-  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.5}
-  .app{max-width:680px;margin:0 auto;padding:0 0 90px}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:var(--body);line-height:var(--line-body)}
+  .app{max-width:720px;margin:0 auto;padding:0 0 90px}
   header{padding:24px 20px 0;margin-bottom:18px}
   .header-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;gap:10px}
-  h1{font-size:22px;font-weight:600;letter-spacing:-.3px}
-  .date-badge{font-size:12px;font-family:'DM Mono',monospace;color:var(--text-muted);background:var(--surface);border:1px solid var(--border);padding:6px 12px;border-radius:var(--radius-pill);cursor:pointer;transition:background .15s;user-select:none;white-space:nowrap}
+  h1{font-size:var(--headline);font-weight:600;letter-spacing:-.3px;line-height:var(--line-tight)}
+  .date-badge{font-size:var(--label);font-family:'DM Mono',monospace;color:var(--text-muted);background:var(--surface);border:1px solid var(--border);padding:7px 13px;border-radius:var(--radius-pill);cursor:pointer;transition:background .15s;user-select:none;white-space:nowrap}
   .date-badge:active{background:var(--amber-bg);color:var(--amber-text);border-color:var(--amber-border)}
-  .date-badge-hint{font-size:10px;color:var(--text-hint);margin-top:3px;text-align:right}
-  .tagline{font-size:13px;color:var(--text-hint)}
+  .date-badge-hint{font-size:var(--label-sm);color:var(--text-hint);margin-top:3px;text-align:right}
+  .tagline{font-size:var(--label);color:var(--text-hint)}
 
   /* Tabs */
   .tab-bar{display:flex;gap:2px;padding:0 20px;border-bottom:1px solid var(--border);margin-bottom:18px;overflow-x:auto;scrollbar-width:none}
   .tab-bar::-webkit-scrollbar{display:none}
-  .tab{padding:11px 14px;font-size:13px;font-weight:500;cursor:pointer;color:var(--text-muted);border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s,border-color .15s;background:none;border-top:none;border-left:none;border-right:none;font-family:'DM Sans',sans-serif;white-space:nowrap}
+  .tab{padding:12px 16px;font-size:var(--label);font-weight:500;cursor:pointer;color:var(--text-muted);border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s,border-color .15s;background:none;border-top:none;border-left:none;border-right:none;font-family:'DM Sans',sans-serif;white-space:nowrap}
   .tab.active{color:var(--text);border-bottom-color:var(--text)}
   .panel{display:none;padding:0 20px}
   .panel.active{display:block}
   .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow)}
-  .section-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-hint);margin-bottom:12px}
+  .section-label{font-size:var(--label-sm);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-hint);margin-bottom:12px}
 
   /* Banners */
   .banner{border-radius:var(--radius-lg);padding:14px 18px;margin-bottom:12px;display:none}
   .banner.night{background:var(--blue-bg);border:1px solid var(--blue-border)}
-  .banner-title{font-size:13px;font-weight:600;margin-bottom:10px}
+  .banner-title{font-size:var(--title);font-weight:600;margin-bottom:10px;line-height:var(--line-tight)}
   .banner.night .banner-title{color:var(--blue-text)}
   .banner-btns{display:flex;gap:8px;flex-wrap:wrap}
-  .banner-btn{padding:9px 18px;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;border-radius:var(--radius-pill);cursor:pointer;border:1.5px solid;transition:background .15s,color .15s;flex:1;min-width:130px}
+  .banner-btn{padding:11px 18px;font-size:var(--label);font-weight:500;font-family:'DM Sans',sans-serif;border-radius:var(--radius-pill);cursor:pointer;border:1.5px solid;transition:background .15s,color .15s;flex:1;min-width:130px}
   .banner.night .banner-btn{border-color:var(--blue-border);background:var(--surface);color:var(--blue-text)}
   .banner.night .banner-btn.active{background:var(--blue-text);color:#fff;border-color:var(--blue-text)}
 
   /* Backfill */
   .backfill-bar{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;padding:10px 14px;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--radius-lg)}
-  .backfill-label{font-size:12px;color:var(--amber-text);font-weight:600;flex-shrink:0}
-  select{font-family:'DM Sans',sans-serif;font-size:14px;padding:8px 12px;border-radius:var(--radius-pill);border:1px solid var(--border-mid);background:var(--surface);color:var(--text);cursor:pointer;outline:none;flex:1;min-width:150px}
+  .backfill-label{font-size:var(--label);color:var(--amber-text);font-weight:600;flex-shrink:0}
+  select{font-family:'DM Sans',sans-serif;font-size:var(--body);padding:10px 12px;border-radius:var(--radius-pill);border:1px solid var(--border-mid);background:var(--surface);color:var(--text);cursor:pointer;outline:none;flex:1;min-width:150px}
 
   /* Habit chips */
   .chips-wrap{display:flex;flex-direction:column;gap:8px}
-  .habit-chip{display:flex;align-items:center;gap:10px;padding:13px 16px;border-radius:var(--radius);font-size:15px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;border:1.5px solid var(--border-mid);background:var(--bg);color:var(--text-muted);transition:background .15s,color .15s,border-color .15s,transform .1s;user-select:none;width:100%;text-align:left}
+  .habit-chip{display:flex;align-items:center;gap:10px;padding:15px 16px;border-radius:var(--radius);font-size:var(--body-lg);font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;border:1.5px solid var(--border-mid);background:var(--bg);color:var(--text-muted);transition:background .15s,color .15s,border-color .15s,transform .1s;user-select:none;width:100%;text-align:left}
   .habit-chip:active{transform:scale(.98)}
   .habit-chip.done{background:var(--green-bg);color:var(--green-text);border-color:var(--green-border)}
   .habit-chip.missed{background:var(--red-bg);color:var(--red-text);border-color:var(--red-border)}
-  .chip-icon{font-size:16px;width:20px;flex-shrink:0}
-  .chip-hint{margin-left:auto;font-size:11px;opacity:.5;font-weight:400}
+  .chip-icon{font-size:var(--title);width:22px;flex-shrink:0}
+  .chip-hint{margin-left:auto;font-size:var(--label-sm);opacity:.5;font-weight:400}
 
   /* Missed reasons */
   .missed-area{margin-top:16px;border-top:1px solid var(--border);padding-top:14px}
   .missed-habit-block{margin-bottom:16px}
-  .missed-habit-name{font-size:13px;font-weight:500;color:var(--red-text);margin-bottom:8px;display:flex;align-items:center;gap:5px}
+  .missed-habit-name{font-size:var(--body);font-weight:500;color:var(--red-text);margin-bottom:8px;display:flex;align-items:center;gap:5px}
   .missed-habit-name::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--red-text);opacity:.5}
   .reason-chips{display:flex;flex-wrap:wrap;gap:6px}
-  .reason-chip{padding:7px 13px;font-size:13px;border-radius:var(--radius-pill);border:1px solid var(--border-mid);background:var(--bg);color:var(--text-muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .12s,color .12s,border-color .12s}
+  .reason-chip{padding:9px 14px;font-size:var(--label);border-radius:var(--radius-pill);border:1px solid var(--border-mid);background:var(--bg);color:var(--text-muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .12s,color .12s,border-color .12s}
   .reason-chip.sel{background:var(--red-bg);color:var(--red-text);border-color:var(--red-border);font-weight:500}
 
   /* Energy/focus */
   .ef-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
   .ef-row:last-child{margin-bottom:0}
-  .ef-label{font-size:13px;color:var(--text-muted);width:52px;flex-shrink:0;font-weight:500}
+  .ef-label{font-size:var(--body);color:var(--text-muted);width:56px;flex-shrink:0;font-weight:500}
   .ef-btns{display:flex;gap:6px;flex:1}
-  .ef-btn{padding:9px 12px;font-size:13px;border-radius:var(--radius-pill);border:1px solid var(--border-mid);background:var(--bg);color:var(--text-muted);cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:background .12s,color .12s,border-color .12s;flex:1}
+  .ef-btn{padding:11px 12px;font-size:var(--label);border-radius:var(--radius-pill);border:1px solid var(--border-mid);background:var(--bg);color:var(--text-muted);cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:background .12s,color .12s,border-color .12s;flex:1}
   .ef-btn.sel{background:var(--text);color:var(--bg);border-color:var(--text)}
 
-  textarea{width:100%;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text);background:var(--bg);border:1px solid var(--border-mid);border-radius:var(--radius);padding:12px;resize:vertical;min-height:76px;line-height:1.5;outline:none;transition:border-color .15s}
+  textarea{width:100%;font-family:'DM Sans',sans-serif;font-size:var(--body-lg);color:var(--text);background:var(--bg);border:1px solid var(--border-mid);border-radius:var(--radius);padding:12px;resize:vertical;min-height:80px;line-height:var(--line-body);outline:none;transition:border-color .15s}
   textarea:focus{border-color:var(--text)}
   textarea::placeholder{color:var(--text-hint)}
   .save-row{display:flex;justify-content:stretch;margin-top:4px}
-  .btn-primary{padding:13px 22px;font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;background:var(--text);color:var(--bg);border:none;border-radius:var(--radius-pill);cursor:pointer;transition:opacity .15s,transform .1s;letter-spacing:.01em;width:100%}
+  .btn-primary{padding:14px 22px;font-size:var(--body-lg);font-weight:600;font-family:'DM Sans',sans-serif;background:var(--text);color:var(--bg);border:none;border-radius:var(--radius-pill);cursor:pointer;transition:opacity .15s,transform .1s;letter-spacing:.01em;width:100%}
   .btn-primary:active{transform:scale(.98)}
   .btn-primary.saved{background:var(--green-text)}
-  .btn-small{padding:8px 14px;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;border-radius:var(--radius-pill);border:1px solid var(--border-mid);background:var(--surface);color:var(--text-muted);cursor:pointer;transition:background .12s;flex-shrink:0}
+  .btn-small{padding:10px 15px;font-size:var(--label);font-weight:500;font-family:'DM Sans',sans-serif;border-radius:var(--radius-pill);border:1px solid var(--border-mid);background:var(--surface);color:var(--text-muted);cursor:pointer;transition:background .12s;flex-shrink:0}
 
   /* Logging badge */
-  .logging-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:50px;margin-left:8px;vertical-align:middle;letter-spacing:.04em}
+  .logging-badge{display:inline-block;font-size:var(--label-sm);font-weight:700;padding:2px 9px;border-radius:50px;margin-left:8px;vertical-align:middle;letter-spacing:.03em}
   .logging-badge.today{background:var(--green-bg);color:var(--green-text)}
   .logging-badge.yesterday{background:var(--amber-bg);color:var(--amber-text)}
   .logging-badge.past{background:var(--blue-bg);color:var(--blue-text)}
-  .day-name-label{font-size:12px;color:var(--text-hint);margin-top:2px}
+  .day-name-label{font-size:var(--label);color:var(--text-hint);margin-top:2px}
 
   /* Reminder card */
   .notif-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow)}
   .notif-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
-  .notif-text{font-size:13px;color:var(--text-muted);line-height:1.6;flex:1;min-width:180px}
-  .notif-status{font-size:11px;font-weight:600;padding:4px 11px;border-radius:var(--radius-pill);flex-shrink:0}
+  .notif-text{font-size:var(--body);color:var(--text-muted);line-height:var(--line-body);flex:1;min-width:180px}
+  .notif-status{font-size:var(--label-sm);font-weight:600;padding:5px 12px;border-radius:var(--radius-pill);flex-shrink:0}
   .notif-status.on{background:var(--green-bg);color:var(--green-text)}
   .notif-status.off{background:var(--red-bg);color:var(--red-text)}
   .notif-status.blocked{background:var(--amber-bg);color:var(--amber-text)}
 
+  /* Time picker for reminders */
+  .time-picker-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  .time-picker-label{font-size:var(--body);color:var(--text);font-weight:500;flex:1;min-width:120px}
+  input[type=time]{font-family:'DM Sans',sans-serif;font-size:var(--body);padding:9px 12px;border-radius:var(--radius);border:1px solid var(--border-mid);background:var(--surface);color:var(--text);outline:none;transition:border-color .15s}
+  input[type=time]:focus{border-color:var(--text)}
+  .reminder-slot{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+  .reminder-slot:last-of-type{border-bottom:none}
+  .reminder-slot .slot-toggle{width:20px;height:20px;flex-shrink:0;accent-color:var(--green-text);cursor:pointer}
+  .reminder-slot .slot-name{flex:1;font-size:var(--body);color:var(--text)}
+  .add-reminder-btn{margin-top:6px}
+
   /* History */
   .history-entry{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:8px;box-shadow:var(--shadow)}
   .history-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;gap:8px}
-  .history-date{font-size:14px;font-weight:600}
-  .history-meta{font-size:11px;color:var(--text-hint);font-family:'DM Mono',monospace;margin-top:1px}
-  .completion-badge{font-size:12px;font-weight:600;padding:4px 11px;border-radius:var(--radius-pill);flex-shrink:0}
+  .history-date{font-size:var(--body-lg);font-weight:600}
+  .history-meta{font-size:var(--label-sm);color:var(--text-hint);font-family:'DM Mono',monospace;margin-top:1px}
+  .completion-badge{font-size:var(--label);font-weight:600;padding:5px 12px;border-radius:var(--radius-pill);flex-shrink:0}
   .completion-badge.high{background:var(--green-bg);color:var(--green-text)}
   .completion-badge.mid{background:var(--amber-bg);color:var(--amber-text)}
   .completion-badge.low{background:var(--red-bg);color:var(--red-text)}
   .completion-badge.rest{background:var(--purple-bg);color:var(--purple-text)}
   .history-chips{display:flex;flex-wrap:wrap;gap:5px}
-  .history-pill{font-size:11px;padding:4px 10px;border-radius:var(--radius-pill);font-weight:500}
+  .history-pill{font-size:var(--label-sm);padding:5px 11px;border-radius:var(--radius-pill);font-weight:500}
   .history-pill.done{background:var(--green-bg);color:var(--green-text)}
   .history-pill.missed{background:var(--red-bg);color:var(--red-text)}
   .history-pill.none{background:var(--bg);color:var(--text-hint);border:1px solid var(--border)}
-  .history-note{font-size:12px;color:var(--text-muted);font-style:italic;margin-top:9px;padding-top:9px;border-top:1px solid var(--border)}
+  .history-note{font-size:var(--body);color:var(--text-muted);font-style:italic;margin-top:9px;padding-top:9px;border-top:1px solid var(--border)}
 
   /* Insights */
   .metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
-  .metric-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 12px;box-shadow:var(--shadow);text-align:center}
-  .metric-val{font-size:24px;font-weight:600;letter-spacing:-1px;color:var(--text)}
-  .metric-lbl{font-size:10px;color:var(--text-hint);margin-top:2px}
+  .metric-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 12px;box-shadow:var(--shadow);text-align:center}
+  .metric-val{font-size:var(--display);font-weight:600;letter-spacing:-1px;color:var(--text);line-height:1.1}
+  .metric-lbl{font-size:var(--label-sm);color:var(--text-hint);margin-top:3px}
   .heat-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px}
-  .heat-cell{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;font-family:'DM Mono',monospace}
+  .heat-cell{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:var(--label-sm);font-weight:600;font-family:'DM Mono',monospace}
   .heat-lbl{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-  .heat-lbl span{font-size:10px;text-align:center;color:var(--text-hint)}
+  .heat-lbl span{font-size:var(--label-sm);text-align:center;color:var(--text-hint)}
   .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
   .bar-row:last-child{margin-bottom:0}
-  .bar-name{flex:1;font-size:13px;color:var(--text)}
+  .bar-name{flex:1;font-size:var(--body);color:var(--text)}
   .bar-track{width:90px;height:8px;background:var(--bg);border-radius:var(--radius-pill);overflow:hidden;flex-shrink:0}
   .bar-fill{height:100%;border-radius:var(--radius-pill);transition:width .5s cubic-bezier(.4,0,.2,1)}
-  .bar-pct{font-size:12px;color:var(--text-muted);font-family:'DM Mono',monospace;width:34px;text-align:right;flex-shrink:0}
-  .insight-card{border-radius:var(--radius);padding:12px 14px;margin-bottom:8px;font-size:13px;line-height:1.6;border-left:3px solid}
+  .bar-pct{font-size:var(--label);color:var(--text-muted);font-family:'DM Mono',monospace;width:38px;text-align:right;flex-shrink:0}
+  .insight-card{border-radius:var(--radius);padding:13px 15px;margin-bottom:8px;font-size:var(--body);line-height:var(--line-body);border-left:3px solid}
   .insight-card.warn{background:var(--amber-bg);border-color:#ef9f27;color:var(--amber-text)}
   .insight-card.tip{background:var(--green-bg);border-color:#1d9e75;color:var(--green-text)}
   .insight-card.alert{background:var(--red-bg);border-color:#e24b4a;color:var(--red-text)}
-  .insight-title{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;opacity:.65;margin-bottom:4px}
+  .insight-title{font-size:var(--label-sm);font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.65;margin-bottom:5px}
 
   /* Sunday panel */
   .banner.sunday{background:var(--purple-bg);border:1px solid var(--purple-border);display:block}
   .banner.sunday .banner-title{color:var(--purple-text)}
-  .sunday-reminder{display:flex;align-items:flex-start;gap:10px;background:rgba(255,255,255,.6);border-radius:var(--radius);padding:12px 14px;margin-bottom:10px}
-  .sunday-reminder-icon{font-size:18px;flex-shrink:0}
-  .sunday-reminder-text{font-size:13px;color:var(--purple-text);line-height:1.5}
+  .sunday-reminder{display:flex;align-items:flex-start;gap:10px;background:rgba(255,255,255,.6);border-radius:var(--radius);padding:13px 14px;margin-bottom:10px}
+  .sunday-reminder-icon{font-size:var(--title-lg);flex-shrink:0}
+  .sunday-reminder-text{font-size:var(--body);color:var(--purple-text);line-height:var(--line-body)}
 
   /* Setup */
-  .schedule-day{margin-bottom:14px}
-  .schedule-day-name{font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;display:flex;align-items:center;gap:6px}
-  .schedule-day-name .badge-rest{font-size:9px;background:var(--purple-bg);color:var(--purple-text);padding:1px 7px;border-radius:50px;font-weight:600}
-  .schedule-tasks{display:flex;flex-wrap:wrap;gap:5px}
-  .schedule-task-pill{font-size:12px;padding:5px 11px;border-radius:var(--radius-pill);background:var(--bg);border:1px solid var(--border);color:var(--text-muted);display:flex;align-items:center;gap:6px}
-  .schedule-task-pill .rm{cursor:pointer;color:var(--red-text);font-weight:700;opacity:.5;font-size:14px;line-height:1}
+  .schedule-day{margin-bottom:16px}
+  .schedule-day-name{font-size:var(--body);font-weight:600;color:var(--text);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+  .schedule-day-name .badge-rest{font-size:var(--label-sm);background:var(--purple-bg);color:var(--purple-text);padding:2px 8px;border-radius:50px;font-weight:600}
+  .schedule-tasks{display:flex;flex-wrap:wrap;gap:6px}
+  .schedule-task-pill{font-size:var(--label);padding:7px 12px;border-radius:var(--radius-pill);background:var(--bg);border:1px solid var(--border);color:var(--text-muted);display:flex;align-items:center;gap:6px}
+  .schedule-task-pill .rm{cursor:pointer;color:var(--red-text);font-weight:700;opacity:.5;font-size:var(--title);line-height:1}
   .schedule-task-pill .rm:active{opacity:1}
   .add-task-inline{display:flex;gap:6px;margin-top:8px}
-  .add-task-inline select{flex:1;font-size:13px;padding:7px 10px}
-  .add-task-inline input{flex:2;padding:8px 12px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--bg);border:1px solid var(--border-mid);border-radius:var(--radius-pill);outline:none}
-  .empty{text-align:center;color:var(--text-hint);font-size:13px;padding:32px 0;line-height:1.8}
-  .no-tasks{font-size:12px;color:var(--text-hint);font-style:italic;padding:10px 0}
-  .install-hint{background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:var(--radius);padding:12px 14px;font-size:12px;color:var(--blue-text);line-height:1.6;margin-top:10px}
+  .add-task-inline input{flex:2;padding:10px 14px;font-size:var(--body);font-family:'DM Sans',sans-serif;color:var(--text);background:var(--bg);border:1px solid var(--border-mid);border-radius:var(--radius-pill);outline:none}
+  .empty{text-align:center;color:var(--text-hint);font-size:var(--body);padding:32px 0;line-height:1.8}
+  .no-tasks{font-size:var(--label);color:var(--text-hint);font-style:italic;padding:10px 0}
+  .install-hint{background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:var(--radius);padding:13px 14px;font-size:var(--body);color:var(--blue-text);line-height:var(--line-body);margin-top:10px}
 
+  /* ── Responsive breakpoints ── */
+  /* Tablet+ : roomier padding, wider container */
+  @media(min-width:601px){
+    .app{padding:0 0 96px}
+    header{padding:28px 28px 0}
+    .panel{padding:0 28px}
+    .tab-bar{padding:0 28px}
+    .card,.notif-card,.history-entry{padding:18px 22px}
+  }
+  /* Desktop : two-column metric emphasis, generous spacing */
+  @media(min-width:900px){
+    .app{max-width:760px}
+  }
+  /* Small phones : tighten side padding only, keep text sizes */
   @media(max-width:600px){
     header{padding:20px 16px 0}
     .panel{padding:0 16px}
     .tab-bar{padding:0 16px}
-    h1{font-size:20px}
   }
 </style>
 </head>
@@ -306,14 +344,13 @@
   <div id="tab-setup" class="panel">
 
     <div class="notif-card">
-      <div class="section-label" style="margin-bottom:10px">Daily reminders</div>
       <div class="notif-row" style="margin-bottom:12px">
-        <div class="notif-text">
-          <strong>8:00 PM</strong> &amp; <strong>10:30 PM</strong> every day<br>
-          Mon–Sat: "Update your habit log"<br>
-          Sunday: "Revise French + review weekly stats"
-        </div>
+        <div class="section-label" style="margin-bottom:0">Daily reminders</div>
         <span class="notif-status" id="notif-status">Checking…</span>
+      </div>
+      <div id="reminder-times"></div>
+      <div style="font-size:var(--label);color:var(--text-hint);line-height:var(--line-body);margin:10px 0 4px">
+        Mon–Sat: "Update your habit log" · Sunday: "Revise French + review weekly stats". A reminder is skipped if you've already logged that day.
       </div>
       <div id="notif-action"></div>
       <div class="install-hint" id="install-hint" style="display:none">
@@ -326,7 +363,7 @@
       <div id="schedule-editor"></div>
     </div>
 
-    <div style="margin-top:4px;font-size:12px;color:var(--text-hint);text-align:center">Data is stored locally on this device.<br>Export regularly to keep a backup.</div>
+    <div style="margin-top:4px;font-size:var(--label);color:var(--text-hint);text-align:center">Data is stored locally on this device.<br>Export regularly to keep a backup.</div>
     <div style="margin-top:10px;display:flex;justify-content:center;gap:10px">
       <button class="btn-small" onclick="exportData()">⬇ Export backup</button>
       <button class="btn-small" onclick="importData()">⬆ Import backup</button>
@@ -355,12 +392,16 @@ function defaultState(){
       5:['Practice interview Q&A','Shadowing'],                    // Friday
       6:['Practice interview Q&A','Sketching','Constructing screen'] // Saturday
     },
+    reminders:[
+      {time:'20:00', on:true},   // default reminder 1 — 8:00 PM
+      {time:'22:30', on:true}    // default reminder 2 — 10:30 PM
+    ],
     logs:[]
   };
 }
 
 function loadState(){
-  try{const s=localStorage.getItem('hpt5');if(s){const p=JSON.parse(s);if(p.schedule&&p.logs)return p;}}catch(e){}
+  try{const s=localStorage.getItem('hpt5');if(s){const p=JSON.parse(s);if(p.schedule&&p.logs){if(!p.reminders)p.reminders=[{time:'20:00',on:true},{time:'22:30',on:true}];return p;}}}catch(e){}
   return defaultState();
 }
 function persist(){try{localStorage.setItem('hpt5',JSON.stringify(ST));}catch(e){}}
@@ -540,7 +581,7 @@ function renderHistory(){
     const cls=isRest?'rest':pct>=80?'high':pct>=50?'mid':'low';
     const pctLabel=isRest?(total?pct+'%':'Rest'):pct+'%';
     const eL=['','↓Low','↔Med','↑High'][l.energy||0];const fL=['','↓Low','↔Med','↑High'][l.focus||0];
-    const tag=l.date===todayStr?' <span style="font-size:10px;background:var(--green-bg);color:var(--green-text);padding:1px 6px;border-radius:50px;font-weight:600">today</span>':l.date===yesterStr?' <span style="font-size:10px;background:var(--amber-bg);color:var(--amber-text);padding:1px 6px;border-radius:50px;font-weight:600">yesterday</span>':'';
+    const tag=l.date===todayStr?' <span style="font-size:var(--label-sm);background:var(--green-bg);color:var(--green-text);padding:1px 6px;border-radius:50px;font-weight:600">today</span>':l.date===yesterStr?' <span style="font-size:var(--label-sm);background:var(--amber-bg);color:var(--amber-text);padding:1px 6px;border-radius:50px;font-weight:600">yesterday</span>':'';
     const div=document.createElement('div');div.className='history-entry';
     div.innerHTML=`<div class="history-header"><div><div class="history-date">${DAYS[l.day]}, ${d.toLocaleDateString(undefined,{month:'short',day:'numeric'})}${tag}</div><div class="history-meta">${isRest?'☀️ Rest & revise':(eL?'E '+eL:'')+(eL&&fL?' · ':'')+(fL?'F '+fL:'')}</div></div><span class="completion-badge ${cls}">${pctLabel}</span></div>`;
     if(tasks.length&&(total>0||!isRest)){div.innerHTML+=`<div class="history-chips">${tasks.map(t=>{const s=l.habits[t]||'none';const rs=((l.reasons||{})[t]||[]).join(', ');return`<span class="history-pill ${s}" title="${rs||t}">${t}</span>`;}).join('')}</div>`;}
@@ -555,10 +596,10 @@ function renderInsights(){
   const el=document.getElementById('insights-content');
   const logs=ST.logs.filter(l=>Object.keys(l.habits).length>0&&l.day!==0);
   const allLogs=ST.logs;
-  if(logs.length<3){el.innerHTML='<div class="empty">Log at least 3 weekdays to unlock insights.<br><span style="font-size:12px">Keep going — patterns need data!</span></div>';
+  if(logs.length<3){el.innerHTML='<div class="empty">Log at least 3 weekdays to unlock insights.<br><span style="font-size:var(--label)">Keep going — patterns need data!</span></div>';
     // still show latest sunday note if present
     const ls=allLogs.filter(l=>l.day===0).sort((a,b)=>b.date.localeCompare(a.date))[0];
-    if(ls&&ls.sundayNote){const c=document.createElement('div');c.className='card';c.style.cssText='background:var(--purple-bg);border-color:var(--purple-border);margin-top:12px';c.innerHTML=`<div class="section-label" style="color:var(--purple-text)">Latest reflection</div><div style="font-size:13px;color:var(--purple-text);font-style:italic">"${ls.sundayNote}"</div>`;el.appendChild(c);}
+    if(ls&&ls.sundayNote){const c=document.createElement('div');c.className='card';c.style.cssText='background:var(--purple-bg);border-color:var(--purple-border);margin-top:12px';c.innerHTML=`<div class="section-label" style="color:var(--purple-text)">Latest reflection</div><div style="font-size:var(--body);color:var(--purple-text);font-style:italic">"${ls.sundayNote}"</div>`;el.appendChild(c);}
     return;}
   el.innerHTML='';
 
@@ -566,7 +607,7 @@ function renderInsights(){
   if(latestSunday&&latestSunday.sundayNote){
     const sd=new Date(latestSunday.date+'T12:00:00');
     const sCard=document.createElement('div');sCard.className='card';sCard.style.cssText='background:var(--purple-bg);border-color:var(--purple-border)';
-    sCard.innerHTML=`<div class="section-label" style="color:var(--purple-text)">Latest Sunday reflection — ${sd.toLocaleDateString(undefined,{month:'short',day:'numeric'})}</div><div style="font-size:13px;color:var(--purple-text);font-style:italic;line-height:1.6">"${latestSunday.sundayNote}"</div>`;
+    sCard.innerHTML=`<div class="section-label" style="color:var(--purple-text)">Latest Sunday reflection — ${sd.toLocaleDateString(undefined,{month:'short',day:'numeric'})}</div><div style="font-size:var(--body);color:var(--purple-text);font-style:italic;line-height:1.6">"${latestSunday.sundayNote}"</div>`;
     el.appendChild(sCard);
   }
 
@@ -693,9 +734,9 @@ function exportData(){const blob=new Blob([JSON.stringify(ST,null,2)],{type:'app
 function importData(){const inp=document.createElement('input');inp.type='file';inp.accept='.json';inp.onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{try{const data=JSON.parse(ev.target.result);if(data.schedule&&data.logs){ST=data;persist();activeDate='';initDateLogic();renderSetup();alert('Import successful!');}else alert('Invalid file format.');}catch(err){alert('Could not parse file.');}};r.readAsText(f);};inp.click();}
 function resetAll(){if(confirm('Erase ALL logged data and reset the schedule to default? This cannot be undone.')){ST=defaultState();persist();activeDate='';nightResolved=false;initDateLogic();renderSetup();alert('Reset complete. Fresh start!');}}
 
-// ── Notifications: 8:00pm & 10:30pm daily ──────────────────────────────────
+// ── Notifications: user-configurable reminder times ────────────────────────
 let notifInterval=null;
-let firedKeys={}; // "date-slot" -> true
+let firedKeys={}; // "date-HH:MM" -> true
 
 async function requestNotifications(){
   if(!('Notification' in window)){renderNotifStatus();return;}
@@ -712,27 +753,29 @@ function checkNotif(){
   if(Notification.permission!=='granted')return;
   const now=new Date();const h=now.getHours();const m=now.getMinutes();const dow=now.getDay();
   const dateStr=localDateStr(now);
-  // 8:00pm slot (20:00) and 10:30pm slot (22:30). 3-min catch window.
-  let slot=null;
-  if(h===20&&m<3)slot='8pm';
-  else if(h===22&&m>=30&&m<33)slot='1030pm';
-  if(!slot)return;
-  const key=dateStr+'-'+slot;
-  if(firedKeys[key])return;firedKeys[key]=true;
-  // Skip 8pm/1030pm if already logged today (reduce nagging) — except Sunday always reminds to revise
-  const alreadyLogged=ST.logs.some(l=>l.date===dateStr&&(Object.keys(l.habits).length>0||l.sundayNote));
-  if(dow===0){
-    fireNotif('📖 Sunday revision','Revise your French notes & vocab, then check your weekly stats.');
-  } else if(!alreadyLogged){
-    fireNotif('✅ Update your habit log',"Take 2 minutes to mark today's tasks done or missed.");
-  }
+  const nowMin=h*60+m;
+  (ST.reminders||[]).forEach(rem=>{
+    if(!rem.on)return;
+    const [rh,rm]=rem.time.split(':').map(Number);
+    const remMin=rh*60+rm;
+    // fire within a 3-minute catch window after the set time
+    if(nowMin<remMin||nowMin>remMin+2)return;
+    const key=dateStr+'-'+rem.time;
+    if(firedKeys[key])return;firedKeys[key]=true;
+    const alreadyLogged=ST.logs.some(l=>l.date===dateStr&&(Object.keys(l.habits).length>0||l.sundayNote));
+    if(dow===0){
+      fireNotif('📖 Sunday revision','Revise your French notes & vocab, then check your weekly stats.');
+    } else if(!alreadyLogged){
+      fireNotif('✅ Update your habit log',"Take 2 minutes to mark today's tasks done or missed.");
+    }
+  });
 }
 function fireNotif(title,body){
   const icon='icon-192.png';
   try{
     if(navigator.serviceWorker&&navigator.serviceWorker.ready){
       navigator.serviceWorker.ready.then(reg=>{
-        reg.showNotification(title,{body,icon,badge:icon,tag:'habit-reminder',renotify:true});
+        reg.showNotification(title,{body,icon,badge:icon,tag:'habit-reminder-'+Date.now(),renotify:true});
       }).catch(()=>{try{new Notification(title,{body,icon});}catch(_){}});
     } else {
       new Notification(title,{body,icon});
@@ -740,22 +783,57 @@ function fireNotif(title,body){
   }catch(e){try{new Notification(title,{body});}catch(_){}}
 }
 
+// Format "HH:MM" 24h -> "8:00 PM"
+function fmtTime(t){
+  const [h,m]=t.split(':').map(Number);
+  const ampm=h>=12?'PM':'AM';
+  const h12=h%12===0?12:h%12;
+  return h12+':'+String(m).padStart(2,'0')+' '+ampm;
+}
+
+// ── Reminder time editor ───────────────────────────────────────────────────
+function renderReminderTimes(){
+  const el=document.getElementById('reminder-times');if(!el)return;
+  if(!ST.reminders)ST.reminders=[];
+  el.innerHTML='';
+  ST.reminders.forEach((rem,i)=>{
+    const row=document.createElement('div');row.className='reminder-slot';
+    const chk=document.createElement('input');chk.type='checkbox';chk.className='slot-toggle';chk.checked=!!rem.on;
+    chk.onchange=()=>{ST.reminders[i].on=chk.checked;persist();renderReminderTimes();};
+    const name=document.createElement('span');name.className='slot-name';
+    name.textContent='Reminder '+(i+1)+' — '+fmtTime(rem.time);
+    const tin=document.createElement('input');tin.type='time';tin.value=rem.time;
+    tin.onchange=()=>{ST.reminders[i].time=tin.value;firedKeys={};persist();renderReminderTimes();};
+    const rm=document.createElement('button');rm.className='btn-small';rm.textContent='Remove';rm.style.padding='7px 12px';
+    rm.onclick=()=>{ST.reminders.splice(i,1);persist();renderReminderTimes();};
+    row.appendChild(chk);row.appendChild(name);row.appendChild(tin);
+    if(ST.reminders.length>1)row.appendChild(rm);
+    el.appendChild(row);
+  });
+  // add-reminder button
+  const add=document.createElement('button');add.className='btn-small add-reminder-btn';add.textContent='+ Add another reminder time';
+  add.onclick=()=>{ST.reminders.push({time:'21:00',on:true});persist();renderReminderTimes();};
+  el.appendChild(add);
+}
+
 function renderNotifStatus(){
   const statusEl=document.getElementById('notif-status');const actionEl=document.getElementById('notif-action');const hintEl=document.getElementById('install-hint');
-  if(!('Notification' in window)){statusEl.textContent='Not supported';statusEl.className='notif-status blocked';actionEl.innerHTML='<div style="font-size:12px;color:var(--text-hint)">This browser doesn\'t support notifications. Try Chrome.</div>';return;}
+  renderReminderTimes();
+  if(!('Notification' in window)){statusEl.textContent='Not supported';statusEl.className='notif-status blocked';actionEl.innerHTML='<div style="font-size:var(--body);color:var(--text-hint)">This browser doesn\'t support notifications. Try Chrome.</div>';return;}
   const perm=Notification.permission;
   if(perm==='granted'){
+    const times=(ST.reminders||[]).filter(r=>r.on).map(r=>fmtTime(r.time)).join(' & ')||'none set';
     statusEl.textContent='● On';statusEl.className='notif-status on';
-    actionEl.innerHTML='<div style="font-size:12px;color:var(--text-hint)">Reminders active. Keep the app installed / tab open for them to fire at 8pm & 10:30pm.</div>';
+    actionEl.innerHTML='<div style="font-size:var(--body);color:var(--text-hint)">Reminders active for '+times+'. Keep the app installed / open for them to fire.</div>';
     hintEl.style.display='block';
     if(!notifInterval)startNotifScheduler();
   } else if(perm==='denied'){
     statusEl.textContent='Blocked';statusEl.className='notif-status blocked';
-    actionEl.innerHTML='<div style="font-size:12px;color:var(--amber-text);background:var(--amber-bg);padding:10px 12px;border-radius:8px;margin-top:6px">Notifications blocked. On phone: browser settings → site settings → Notifications → Allow. Then reload.</div>';
+    actionEl.innerHTML='<div style="font-size:var(--body);color:var(--amber-text);background:var(--amber-bg);padding:12px 14px;border-radius:8px;margin-top:6px">Notifications blocked. On phone: browser settings → site settings → Notifications → Allow. Then reload.</div>';
     hintEl.style.display='block';
   } else {
     statusEl.textContent='Off';statusEl.className='notif-status off';
-    actionEl.innerHTML='<button class="btn-primary" style="margin-top:6px" onclick="requestNotifications()">Enable 8pm & 10:30pm reminders</button>';
+    actionEl.innerHTML='<button class="btn-primary" style="margin-top:6px" onclick="requestNotifications()">Enable reminders</button>';
     hintEl.style.display='block';
   }
 }
