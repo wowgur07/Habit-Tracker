@@ -242,6 +242,17 @@
   <!-- ══ LOG PANEL ══ -->
   <div id="tab-log" class="panel active">
 
+    <div class="banner onboard" id="onboard-banner" style="display:none;background:var(--green-bg);border:1px solid var(--green-border)">
+      <div class="banner-title" style="color:var(--green-text)">👋 Welcome! These are sample tasks</div>
+      <div style="font-size:var(--body);color:var(--green-text);line-height:var(--line-body);margin-bottom:12px">
+        The tasks shown are just examples to get you started. Head to the <strong>Setup</strong> tab to replace them with your own habits for each day, set your reminder times, and make this tracker yours. Your data stays private on your device.
+      </div>
+      <div class="banner-btns">
+        <button class="banner-btn" style="background:var(--green-text);color:#fff;border-color:var(--green-text);flex:1" onclick="switchTab('setup',null)">→ Set up my tasks</button>
+        <button class="banner-btn" style="border-color:var(--green-border);background:var(--surface);color:var(--green-text)" onclick="dismissOnboard()">Got it</button>
+      </div>
+    </div>
+
     <div class="banner night" id="night-banner">
       <div class="banner-title">🌙 It's past midnight — which day are you logging for?</div>
       <div class="banner-btns">
@@ -262,7 +273,7 @@
         <div class="banner-title">☀️ Sunday — Rest, Revise &amp; Review</div>
         <div class="sunday-reminder">
           <span class="sunday-reminder-icon">📖</span>
-          <span class="sunday-reminder-text"><strong>Revise your French notes &amp; vocabulary.</strong> Go over what you practised through the week.</span>
+          <span class="sunday-reminder-text"><strong>Review &amp; revise.</strong> Go over what you worked on through the week and consolidate it.</span>
         </div>
         <div class="sunday-reminder">
           <span class="sunday-reminder-icon">📊</span>
@@ -381,22 +392,26 @@ const DAYS_FULL=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Sa
 
 // ── Fresh default state with day-specific schedule ─────────────────────────
 // schedule[dayIndex] = array of task names. 0=Sunday ... 6=Saturday
+// NOTE: These are generic PUBLIC starter tasks. First-time visitors see these
+// and are expected to edit them in Setup. Existing installs are unaffected —
+// defaults are only read on a first-ever visit (empty localStorage).
 function defaultState(){
   return {
     schedule:{
-      0:['Constructing screen'],                                   // Sunday (revision day)
-      1:['Practice interview Q&A','Shadowing'],                    // Monday
-      2:['Practice interview Q&A','Claude prompt speaking'],       // Tuesday
-      3:['Practice interview Q&A','Shadowing','Sketching'],        // Wednesday
-      4:['Practice interview Q&A','Claude prompt speaking'],       // Thursday
-      5:['Practice interview Q&A','Shadowing'],                    // Friday
-      6:['Practice interview Q&A','Sketching','Constructing screen'] // Saturday
+      0:['Weekly review'],                     // Sunday (rest & review day)
+      1:['Exercise','Read'],                    // Monday
+      2:['Exercise','Learn a skill'],           // Tuesday
+      3:['Exercise','Read','Journal'],          // Wednesday
+      4:['Exercise','Learn a skill'],           // Thursday
+      5:['Exercise','Read'],                    // Friday
+      6:['Exercise','Journal']                  // Saturday
     },
     reminders:[
       {time:'20:00', on:true},   // default reminder 1 — 8:00 PM
       {time:'22:30', on:true}    // default reminder 2 — 10:30 PM
     ],
-    logs:[]
+    logs:[],
+    onboarded:false
   };
 }
 
@@ -849,10 +864,29 @@ function switchTab(tab,btnEl){
   if(tab==='setup')renderSetup();
 }
 
-// ── Service worker registration (real file, enables install + offline) ──────
+// ── Service worker registration + auto-update ──────────────────────────────
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{
-    navigator.serviceWorker.register('sw.js').catch(()=>{});
+    navigator.serviceWorker.register('sw.js').then(reg=>{
+      // Check for updates whenever the app is opened.
+      reg.update();
+      // When a new worker installs, activate it right away.
+      reg.addEventListener('updatefound',()=>{
+        const nw=reg.installing;
+        if(!nw)return;
+        nw.addEventListener('statechange',()=>{
+          if(nw.state==='installed'&&navigator.serviceWorker.controller){
+            // A fresh version is ready — reload once to load it.
+            nw.postMessage&&nw.postMessage({type:'SKIP_WAITING'});
+          }
+        });
+      });
+    }).catch(()=>{});
+    // Reload the page once the new SW takes control (only once).
+    let refreshed=false;
+    navigator.serviceWorker.addEventListener('controllerchange',()=>{
+      if(refreshed)return;refreshed=true;window.location.reload();
+    });
   });
 }
 
@@ -875,8 +909,25 @@ function showInstallButton(){
 }
 window.addEventListener('appinstalled',()=>{const b=document.getElementById('install-btn');if(b)b.remove();});
 
+// ── Onboarding banner (first-time visitors only) ───────────────────────────
+function checkOnboarding(){
+  const b=document.getElementById('onboard-banner');
+  if(!b)return;
+  // Show only if the user hasn't dismissed it and hasn't logged anything yet.
+  if(!ST.onboarded && (!ST.logs || ST.logs.length===0)){
+    b.style.display='block';
+  } else {
+    b.style.display='none';
+  }
+}
+function dismissOnboard(){
+  ST.onboarded=true;persist();
+  const b=document.getElementById('onboard-banner');if(b)b.style.display='none';
+}
+
 // ── Boot ───────────────────────────────────────────────────────────────────
 initDateLogic();
+checkOnboarding();
 if(typeof Notification!=='undefined'&&Notification.permission==='granted')startNotifScheduler();
 </script>
 </body>

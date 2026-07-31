@@ -2,7 +2,7 @@
 // Two jobs: (1) cache files so the app works offline, and (2) handle
 // notification clicks so tapping a reminder opens the app.
 
-const CACHE = 'habit-tracker-v2';
+const CACHE = 'habit-tracker-v3';
 const ASSETS = [
   './',
   './index.html',
@@ -33,8 +33,20 @@ self.addEventListener('activate', (e) => {
 // Fetch: serve from cache first, fall back to network (offline support).
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
+  // Network-first: always try to fetch the freshest version when online,
+  // update the cache with it, and fall back to cache only when offline.
+  // This guarantees users get updates without being stuck on a stale cache.
   e.respondWith(
-    caches.match(e.request).then((cached) => cached || fetch(e.request).catch(() => cached))
+    fetch(e.request)
+      .then((res) => {
+        // Cache a copy of successful responses for offline use.
+        if (res && res.status === 200 && res.type === 'basic') {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(e.request, copy));
+        }
+        return res;
+      })
+      .catch(() => caches.match(e.request))
   );
 });
 
@@ -54,6 +66,10 @@ self.addEventListener('notificationclick', (e) => {
 // Allow the page to trigger a notification through the SW
 // (needed for reminders to display reliably on mobile).
 self.addEventListener('message', (e) => {
+  if (e.data && e.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+    return;
+  }
   if (e.data && e.data.type === 'SHOW_NOTIFICATION') {
     const { title, body, icon } = e.data;
     self.registration.showNotification(title, {
